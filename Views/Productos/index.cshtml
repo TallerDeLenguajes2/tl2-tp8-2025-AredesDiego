@@ -1,24 +1,39 @@
 @model IEnumerable<Productos>
 
-<h2>Lista de Productos</h2>
+<section class="container mt-4">
+    <header class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Lista de Productos</h2>
+        <a href="/Productos/Crear" class="btn btn-success">
+            <i class="bi bi-plus-circle me-1"></i> Crear nuevo
+        </a>
+    </header>
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Precio</th>
-            <th>Descripcion</th>
-        </tr>
-    </thead>
-
-    <tbody>
-            @foreach(var producto in Model)
+    <table class="table table-striped table-hover text-center align-middle shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th style="width: 10%;">Id</th>
+                <th style="width: 20%;">Precio</th>
+                <th style="width: 50%;">Descripción</th>
+                <th style="width: 20%;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var producto in Model)
             {
                 <tr>
                     <td>@producto.idProducto</td>
-                    <td>@producto.Precio</td>
-                    <td>@producto.Descripcion</td>
+                    <td class="text-success fw-bold">$@producto.Precio</td>
+                    <td class="text-break">@producto.Descripcion</td>
+                    <td>
+                        <a href="/Productos/Editar/@producto.idProducto" class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="/Productos/Eliminar/@producto.idProducto" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
                 </tr>
             }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</section>
