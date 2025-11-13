@@ -10,7 +10,7 @@ interface IPresupuestosRepository
 }
 public class PresupuestosRepository : IPresupuestosRepository
 {
-	private string conection_string = "Data Source=Tienda.db";
+	private string conection_string = "Data Source=DB/Tienda.db";
 	public void CrearPresupuesto(Presupuestos presupuestos)
 	{
 		using var conexion = new SqliteConnection(conection_string);

@@ -12,7 +12,7 @@ interface IProductoRepository
 }
 public class ProductoRepository : IProductoRepository
 {
-    private string conection_string = "Data Source=Tienda.db";
+    private string conection_string = "Data Source=DB/Tienda.db";
 
     public void CrearProducto(Productos producto)
     {
