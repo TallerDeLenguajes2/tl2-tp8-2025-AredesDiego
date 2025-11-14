@@ -9,15 +9,18 @@ public class PresupuestosController : Controller
 {
     private readonly ILogger<PresupuestosController> _logger;
 
+    private PresupuestosRepository _presupuestosRepository;
     public PresupuestosController(ILogger<PresupuestosController> logger)
     {
         _logger = logger;
+        _presupuestosRepository = new PresupuestosRepository();
     }
 
+    [HttpGet]
     public IActionResult Index()
     {
-        return View();
+        List<Presupuestos> presupuestos = _presupuestosRepository.ListarPresupuestos();
+        return View(presupuestos);
     }
-    
 }
 
