@@ -5,7 +5,7 @@ using Microsoft.VisualBasic;
 interface IProductoRepository
 {
     void CrearProducto(Productos producto);
-    bool ModificarProducto(int id, Productos productos);
+    bool ModificarProducto(Productos productos);
     List<Productos> ListarProductos();
     Productos ObtenerDetalles(int id);
     bool EliminarProducto(int id);
@@ -28,15 +28,19 @@ public class ProductoRepository : IProductoRepository
 
         comando.ExecuteNonQuery();
     }
-    public bool ModificarProducto(int id, Productos productos)
+    public bool ModificarProducto(Productos productos)
     {
         using var conexion = new SqliteConnection(conection_string);
         conexion.Open();
 
+        Console.WriteLine("ID: " + productos.idProducto);
+Console.WriteLine("Desc: " + (productos.Descripcion ?? "NULL"));
+Console.WriteLine("Precio: " + productos.Precio);
+
         string sql = "UPDATE Productos SET Descripcion = @Descripcion, Precio = @Precio WHERE idProducto = @id";
         
         using var comando = new SqliteCommand(sql, conexion);
-        comando.Parameters.Add(new SqliteParameter("@id", id));
+        comando.Parameters.Add(new SqliteParameter("@id", productos.idProducto));
         comando.Parameters.Add(new SqliteParameter("@Descripcion", productos.Descripcion));
         comando.Parameters.Add(new SqliteParameter("@Precio", productos.Precio));
 
@@ -101,7 +105,7 @@ public class ProductoRepository : IProductoRepository
     }
     public bool EliminarProducto(int id)
     {
-        using var conexion = new SqliteConnection(conection_string);
+       /*  using var conexion = new SqliteConnection(conection_string);
         conexion.Open();
 
         string sql = "DELETE FROM Productos WHERE idProducto = @id";
@@ -110,6 +114,25 @@ public class ProductoRepository : IProductoRepository
         comando.Parameters.Add(new SqliteParameter("@id", id));
         int filasAfectadas = comando.ExecuteNonQuery(); 
 
-        return filasAfectadas > 0;
+        return filasAfectadas > 0; */
+        using var conexion = new SqliteConnection(conection_string);
+        conexion.Open();
+
+        // Primero borro las referencias en PresupuestosDetalle
+        string sql1 = "DELETE FROM PresupuestosDetalle WHERE idProducto = @id";
+        using (var cmd1 = new SqliteCommand(sql1, conexion))
+        {
+            cmd1.Parameters.Add(new SqliteParameter("@id", id));
+            cmd1.ExecuteNonQuery();
+        }
+
+        // Luego borro el producto
+        string sql2 = "DELETE FROM Productos WHERE idProducto = @id";
+        using (var cmd2 = new SqliteCommand(sql2, conexion))
+        {
+            cmd2.Parameters.Add(new SqliteParameter("@id", id));
+            int filas = cmd2.ExecuteNonQuery();
+            return filas > 0;
+        }
     }
 }

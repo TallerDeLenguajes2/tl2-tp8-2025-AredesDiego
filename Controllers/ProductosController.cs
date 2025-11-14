@@ -22,6 +22,45 @@ public class ProductosController : Controller
         return View(productos);
     }
     
+    [HttpGet]
+    public IActionResult Create(int id)
+    {
+        Productos producto = new Productos();
+        return View(producto);
+    }
+    
+    [HttpPost]
+    public IActionResult Create(Productos producto)
+    {
+        _productoRepository.CrearProducto(producto);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        Productos producto = _productoRepository.ObtenerDetalles(id);
+        if(producto == null)
+        {
+            return RedirectToAction("Index");
+        }
+
+        return View(producto);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Productos producto)
+    {
+        _productoRepository.ModificarProducto(producto);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        _productoRepository.EliminarProducto(id);
+        return RedirectToAction("Index");
+    }
 
 }
 
