@@ -58,7 +58,15 @@ public class ProductosController : Controller
     [HttpGet]
     public IActionResult Delete(int id)
     {
-        _productoRepository.EliminarProducto(id);
+        var producto = _productoRepository.ObtenerDetalles(id);
+        if (producto == null) return RedirectToAction("Index");
+        return View(producto);
+    }
+    
+    [HttpPost]
+    public IActionResult DeleteConfirmacion(int idProducto)
+    {
+        _productoRepository.EliminarProducto(idProducto);
         return RedirectToAction("Index");
     }
 

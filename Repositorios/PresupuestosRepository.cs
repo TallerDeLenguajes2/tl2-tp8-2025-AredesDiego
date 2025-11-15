@@ -16,11 +16,10 @@ public class PresupuestosRepository : IPresupuestosRepository
 		using var conexion = new SqliteConnection(conection_string);
 		conexion.Open();
 
-		string sql = "INSERT INTO Presupuestos (idPresupuesto, NombreDestinatario, FechaCreacion) VALUES (@idPresupuesto, @NombreDestinatario, @FechaCreacion)";
+		string sql = "INSERT INTO Presupuestos (NombreDestinatario, FechaCreacion) VALUES (@NombreDestinatario, @FechaCreacion)";
 
 		using var comando = new SqliteCommand(sql, conexion);
 
-		comando.Parameters.Add(new SqliteParameter("@idPresupuesto", presupuestos.idPresupuesto));
 		comando.Parameters.Add(new SqliteParameter("@NombreDestinatario", presupuestos.NombreDestinatario));
 		comando.Parameters.Add(new SqliteParameter("@FechaCreacion", presupuestos.FechaCreacion));
 
@@ -83,7 +82,6 @@ public class PresupuestosRepository : IPresupuestosRepository
 
 		while (lector.Read())
 		{
-
 			if (presupuesto == null) //Si encontró un registro
 			{
 				presupuesto = new Presupuestos()
@@ -130,6 +128,22 @@ public class PresupuestosRepository : IPresupuestosRepository
 
 		comando.ExecuteNonQuery();
 	}
+	public bool ModificarPresupuesto(Presupuestos presupuestos)
+    {
+        using var conexion = new SqliteConnection(conection_string);
+        conexion.Open();
+
+        string sql = "UPDATE Presupuestos SET NombreDestinatario = @NombreDestinatario, FechaCreacion = @FechaCreacion WHERE idPresupuesto = @id";
+        
+        using var comando = new SqliteCommand(sql, conexion);
+        comando.Parameters.Add(new SqliteParameter("@id", presupuestos.idPresupuesto));
+        comando.Parameters.Add(new SqliteParameter("@NombreDestinatario", presupuestos.NombreDestinatario));
+        comando.Parameters.Add(new SqliteParameter("@FechaCreacion", presupuestos.FechaCreacion));
+
+        int filasAfectadas = comando.ExecuteNonQuery();
+
+        return filasAfectadas > 0;
+    }
 	public bool EliminarPresupuesto(int id)
 	{
 		using var conexion = new SqliteConnection(conection_string);
