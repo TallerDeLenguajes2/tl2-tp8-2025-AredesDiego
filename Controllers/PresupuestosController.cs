@@ -40,7 +40,8 @@ public class PresupuestosController : Controller
     [HttpGet]
     public IActionResult Edit(int idPresupuesto)
     {
-        var presupuesto = _presupuestosRepository.ObtenerDetalles(idPresupuesto);
+        Console.WriteLine(idPresupuesto);
+        var presupuesto = _presupuestosRepository.ObtenerPresupuesto(idPresupuesto);
         return View(presupuesto);
     }
 
@@ -50,5 +51,14 @@ public class PresupuestosController : Controller
         _presupuestosRepository.ModificarPresupuesto(presupuestos);
         return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public IActionResult Details(int idPresupuesto)
+    {
+        var detalle = _presupuestosRepository.ObtenerDetalles(idPresupuesto);
+        return View(detalle);
+    }
+
+
 }
 

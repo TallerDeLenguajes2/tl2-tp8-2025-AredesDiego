@@ -1,0 +1,61 @@
+@model Presupuestos
+
+@{
+    ViewData["Title"] = "Detalles del Presupuesto";
+}
+
+<h2>Detalles del Presupuesto</h2>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre Destinatario</th>
+            <th>Fecha de Creación</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.idPresupuesto</td>
+            <td>@Model.NombreDestinatario</td>
+            <td>@Model.FechaCreacion</td>
+        </tr>
+    </tbody>
+</table>
+
+<hr />
+
+<h3>Productos del Presupuesto</h3>
+
+@if (Model.Detalle == null || !Model.Detalle.Any())
+{
+    <p class="text-muted">No hay productos cargados en este presupuesto.</p>
+}
+else
+{
+    <table class="table table-striped table-hover text-center align-middle shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>ID Producto</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Detalle)
+            {
+                <tr>
+                    <td>@item.Producto.idProducto</td>
+                    <td>@item.Producto.Descripcion</td>
+                    <td>$@item.Producto.Precio</td>
+                    <td>@item.Cantidad</td>
+                    <td>@(item.Cantidad * item.Producto.Precio)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Volver</a>

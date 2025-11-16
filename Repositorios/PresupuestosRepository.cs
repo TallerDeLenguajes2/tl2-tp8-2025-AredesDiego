@@ -111,6 +111,34 @@ public class PresupuestosRepository : IPresupuestosRepository
 
 		return presupuesto;
 	}
+	public Presupuestos ObtenerPresupuesto(int id)
+	{
+		using var conexion = new SqliteConnection(conection_string);
+		conexion.Open();
+
+		string sql = @"
+			SELECT idPresupuesto, NombreDestinatario, FechaCreacion
+			FROM Presupuestos
+			WHERE idPresupuesto = @id;
+		";
+
+		using var comando = new SqliteCommand(sql, conexion);
+		comando.Parameters.Add(new SqliteParameter("@id", id));
+
+		using var lector = comando.ExecuteReader();
+
+		if (lector.Read())
+		{
+			return new Presupuestos()
+			{
+				idPresupuesto = Convert.ToInt32(lector["idPresupuesto"]),
+				NombreDestinatario = lector["NombreDestinatario"].ToString(),
+				FechaCreacion = DateOnly.FromDateTime(Convert.ToDateTime(lector["FechaCreacion"]))
+			};
+		}
+
+		return null;
+	}
 	public void AgregarProductoAPresupuesto(int idPresupuesto, int idProducto, int cantidad)
 	{
 		using var conexion = new SqliteConnection(conection_string);
