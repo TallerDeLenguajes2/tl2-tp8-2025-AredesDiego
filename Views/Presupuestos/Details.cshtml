@@ -4,6 +4,15 @@
     ViewData["Title"] = "Detalles del Presupuesto";
 }
 
+@if (Model == null)
+{
+    <div class="alert alert-danger" role="alert">
+        No se encontró el presupuesto solicitado.
+    </div>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Volver</a>
+    return;
+}
+
 <h2>Detalles del Presupuesto</h2>
 
 <table class="table table-bordered">
