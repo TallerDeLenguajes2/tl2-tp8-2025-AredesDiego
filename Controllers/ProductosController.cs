@@ -1,7 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
+using SistemaVentas.Web.ViewModels;
 using Tp8.Models;
+
+using SistemaVentas.Web.ViewModels;
 
 namespace Tp8.Controllers;
 
@@ -30,10 +33,18 @@ public class ProductosController : Controller
     }
     
     [HttpPost]
-    public IActionResult Create(Productos producto)
+    public IActionResult Create(ProductoViewModel productoVM)
     {
-        _productoRepository.CrearProducto(producto);
-        return RedirectToAction("Index");
+        if(!ModelState.IsValid) return View(productoVM);
+
+        var NuevoProducto = new Productos
+        {
+            Descripcion = productoVM.Descripcion,
+            Precio = productoVM.Precio
+        };
+
+        _productoRepository.CrearProducto(NuevoProducto);
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet]
@@ -49,10 +60,20 @@ public class ProductosController : Controller
     }
 
     [HttpPost]
-    public IActionResult Edit(Productos producto)
+    public IActionResult Edit(int id, ProductoViewModel productoVM)
     {
-        _productoRepository.ModificarProducto(producto);
-        return RedirectToAction("Index");
+        if(id != productoVM.idProducto) return NotFound();
+        if (!ModelState.IsValid) return View(productoVM);
+
+        var productoAEditar = new Productos
+        {
+            idProducto = productoVM.idProducto,
+            Descripcion = productoVM.Descripcion,
+            Precio = productoVM.Precio
+        };
+
+        _productoRepository.ModificarProducto(productoAEditar);
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet]

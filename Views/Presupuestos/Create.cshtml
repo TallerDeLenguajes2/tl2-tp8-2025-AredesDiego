@@ -1,4 +1,4 @@
-@model Presupuestos
+@model SistemaVentas.Web.ViewModels.PresupuestoViewModel;
 
 @{
     ViewData["Title"] = "Crear Presupuesto";
@@ -27,4 +27,7 @@
     </div>
 </form>
 
-<partial name="_ValidationScriptsPartial" />
+@section Scripts
+{
+    <partial name= "_ValidationScriptsPartial"/>
+}

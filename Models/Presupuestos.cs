@@ -5,13 +5,13 @@ public class Presupuestos
     public DateOnly FechaCreacion { get; set; }
     public List<PresupuestosDetalle> Detalle { get; set; }
 
-    public double MontoPresupuestoConIva(List<PresupuestosDetalle> detalle)
+    public decimal MontoPresupuestoConIva(List<PresupuestosDetalle> detalle)
     {
-        return MontoPresupuesto(detalle) * 1.21;
+        return MontoPresupuesto(detalle) * (decimal)1.21;
     }
-    private double MontoPresupuesto(List<PresupuestosDetalle> detalle)
+    private decimal MontoPresupuesto(List<PresupuestosDetalle> detalle)
     {
-        double total = 0;
+        decimal total = 0;
 
         foreach (var presupuesto_detalle in detalle)
         {

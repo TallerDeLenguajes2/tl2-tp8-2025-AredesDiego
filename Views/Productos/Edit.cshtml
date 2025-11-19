@@ -1,4 +1,4 @@
-@model Productos
+@model SistemaVentas.Web.ViewModels.ProductoViewModel;
 
 @{
     ViewData["Title"] = "Editar Producto ";
@@ -29,4 +29,7 @@
     </div>
 </form>
 
-<partial name="_ValidationScriptsPartial" />
+@section Scripts
+{
+    <partial name= "_ValidationScriptsPartial"/>
+}
