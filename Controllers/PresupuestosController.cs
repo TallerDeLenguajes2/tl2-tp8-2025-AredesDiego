@@ -66,6 +66,21 @@ public class PresupuestosController : Controller
     }
 
     [HttpGet]
+    public IActionResult Delete(int idPresupuesto)
+    {
+        var presupuestos = _presupuestosRepository.ObtenerPresupuesto(idPresupuesto);
+        if (presupuestos == null) return RedirectToAction("Index");
+        return View(presupuestos);
+    }
+    
+    [HttpPost]
+    public IActionResult DeleteConfirmacion(int idPresupuesto)
+    {
+        _presupuestosRepository.EliminarPresupuesto(idPresupuesto);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
     public IActionResult AgregarProducto(int idPresupuesto)
     {
         List<Productos> productos = _productosRepository.ListarProductos();
