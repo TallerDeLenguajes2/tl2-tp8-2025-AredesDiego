@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering; //Necesario para SelecList
 
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation; //Agregado, para usar el ValidateNever
+
 namespace SistemaVentas.Web.ViewModels
 {
     public class AgregarProductoViewModel
@@ -15,6 +17,7 @@ namespace SistemaVentas.Web.ViewModels
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a cero")]
         public int Cantidad {get; set;}
 
+        [ValidateNever]
         public SelectList ListaProductos{get; set;}
     }
 }
