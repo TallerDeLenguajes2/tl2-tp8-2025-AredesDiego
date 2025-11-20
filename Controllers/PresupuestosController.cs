@@ -24,9 +24,9 @@ public class PresupuestosController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create(int id)
+    public IActionResult Create()
     {
-        var presupuesto = _presupuestosRepository.ObtenerDetalles(id);
+        var presupuesto = new Presupuestos();
         return View(presupuesto);
     }
 
@@ -59,6 +59,20 @@ public class PresupuestosController : Controller
         return View(detalle);
     }
 
+        [HttpGet]
+    public IActionResult Delete(int idPresupuesto)
+    {
+        var presupuestos = _presupuestosRepository.ObtenerPresupuesto(idPresupuesto);
+        if (presupuestos == null) return RedirectToAction("Index");
+        return View(presupuestos);
+    }
+    
+    [HttpPost]
+    public IActionResult DeleteConfirmacion(int idPresupuesto)
+    {
+        _presupuestosRepository.EliminarPresupuesto(idPresupuesto);
+        return RedirectToAction("Index");
+    }
 
 }
 
