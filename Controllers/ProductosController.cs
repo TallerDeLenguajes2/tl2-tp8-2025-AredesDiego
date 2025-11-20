@@ -26,10 +26,10 @@ public class ProductosController : Controller
     }
     
     [HttpGet]
-    public IActionResult Create(int id)
+    public IActionResult Create()
     {
-        Productos producto = new Productos();
-        return View(producto);
+        var productoVM = new ProductoViewModel();
+        return View(productoVM);
     }
     
     [HttpPost]
@@ -51,12 +51,16 @@ public class ProductosController : Controller
     public IActionResult Edit(int id)
     {
         Productos producto = _productoRepository.ObtenerDetalles(id);
-        if(producto == null)
-        {
-            return RedirectToAction("Index");
-        }
+        if(producto == null) return RedirectToAction("Index");
 
-        return View(producto);
+        var productoVM = new ProductoViewModel
+        {
+            idProducto = producto.idProducto,
+            Descripcion = producto.Descripcion,
+            Precio = producto.Precio
+        };
+
+        return View(productoVM);
     }
 
     [HttpPost]
