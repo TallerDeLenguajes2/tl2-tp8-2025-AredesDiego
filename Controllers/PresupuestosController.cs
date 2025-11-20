@@ -59,7 +59,7 @@ public class PresupuestosController : Controller
         return View(detalle);
     }
 
-        [HttpGet]
+    [HttpGet]
     public IActionResult Delete(int idPresupuesto)
     {
         var presupuestos = _presupuestosRepository.ObtenerPresupuesto(idPresupuesto);
