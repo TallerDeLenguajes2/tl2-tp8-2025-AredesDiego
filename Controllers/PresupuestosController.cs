@@ -13,13 +13,14 @@ public class PresupuestosController : Controller
 {
     private readonly ILogger<PresupuestosController> _logger;
 
-    private ProductoRepository _productosRepository;
-    private PresupuestosRepository _presupuestosRepository;
-    public PresupuestosController(ILogger<PresupuestosController> logger)
+    private IProductoRepository _productosRepository;
+    private IPresupuestosRepository _presupuestosRepository;
+    private IAuthenticationService _authService;    
+    public PresupuestosController()
     {
-        _logger = logger;
         _productosRepository = new ProductoRepository();
         _presupuestosRepository = new PresupuestosRepository();
+        _authService = new IAuthenticationService();
     }
 
     [HttpGet]

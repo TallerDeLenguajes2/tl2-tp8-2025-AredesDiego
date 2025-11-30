@@ -10,12 +10,12 @@ namespace Tp8.Controllers;
 
 public class ProductosController : Controller
 {
-    private readonly ILogger<ProductosController> _logger;
     private ProductoRepository _productoRepository;
-    public ProductosController(ILogger<ProductosController> logger)
+        private IAuthenticationService _authService;    
+    public ProductosController()
     {
-        _logger = logger;
         _productoRepository = new ProductoRepository();
+        _authService = new IAuthenticationService();
     }
 
     [HttpGet]
