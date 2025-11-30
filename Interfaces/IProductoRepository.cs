@@ -1,4 +1,4 @@
-interface IProductoRepository
+public interface IProductoRepository
 {
     void CrearProducto(Productos producto);
     bool ModificarProducto(Productos productos);

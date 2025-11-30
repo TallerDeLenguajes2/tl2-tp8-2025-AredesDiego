@@ -10,26 +10,26 @@
         <thead class="table-dark">
             <tr>
                 <th style="width: 10%;">Id</th>
-                <th style="width: 20%;">NombreDestinatario</th>
-                <th style="width: 50%;">FechaCreacion</th>
-                <th style="width: 20%;">Acciones</th>
+                <th style="width: 30%;">Nombre/Destinatario</th>
+                <th style="width: 20%;">Fecha Creación</th>
+                <th style="width: 40%;">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var presupuestos in Model)
+            @foreach (var presupuesto in Model)
             {
                 <tr>
-                    <td>@presupuestos.idPresupuesto</td>
-                    <td class="text-break">@presupuestos.NombreDestinatario</td>
-                    <td class="text-break">@presupuestos.FechaCreacion</td>
-
-                    <td class="d-flex gap-2 justify-content-center">
-                        <a asp-controller="Presupuestos" asp-action="Details" asp-route-idPresupuesto="@presupuestos.idPresupuesto" class="btn btn-info">Detalle</a>
-                        <a asp-controller="Presupuestos" asp-action="Edit" asp-route-idPresupuesto="@presupuestos.idPresupuesto" class="btn btn-warning">Modificar</a>
-                        <a asp-controller="Presupuestos" asp-action="AgregarProducto" asp-route-idPresupuesto="@presupuestos.idPresupuesto" class="btn btn-dark">Agregar Producto</a>
-                        <a asp-controller ="Presupuestos" asp-action="Delete" asp-route-idPresupuesto="@presupuestos.idPresupuesto" class="btn btn-danger">Eliminar</a>
+                    <td>@presupuesto.idPresupuesto</td>
+                    <td class="text-start">@presupuesto.NombreDestinatario</td>
+                    <td>@presupuesto.FechaCreacion.ToString("dd/MM/yyyy")</td> <!-- CORREGIDO: fuera del td extra -->
+                    <td>
+                        <div class="d-flex gap-1 justify-content-center">
+                            <a asp-controller="Presupuestos" asp-action="Details" asp-route-idPresupuesto="@presupuesto.idPresupuesto" class="btn btn-info btn-sm">Detalle</a>
+                            <a asp-controller="Presupuestos" asp-action="Edit" asp-route-idPresupuesto="@presupuesto.idPresupuesto" class="btn btn-warning btn-sm">Modificar</a>
+                            <a asp-controller="Presupuestos" asp-action="AgregarProducto" asp-route-idPresupuesto="@presupuesto.idPresupuesto" class="btn btn-success btn-sm">Agregar Producto</a>
+                            <a asp-controller="Presupuestos" asp-action="Delete" asp-route-idPresupuesto="@presupuesto.idPresupuesto" class="btn btn-danger btn-sm">Eliminar</a>
+                        </div>
                     </td>
-
                 </tr>
             }
         </tbody>

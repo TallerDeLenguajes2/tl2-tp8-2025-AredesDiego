@@ -48,7 +48,7 @@ public class AuthenticationService : IAuthenticationService
 
         context.Session.Clear();
     }
-    public bool IsAutheticated()
+    public bool IsAuthenticated()
     {
         var context = _httpContextAccesor.HttpContext;
         if(context == null)

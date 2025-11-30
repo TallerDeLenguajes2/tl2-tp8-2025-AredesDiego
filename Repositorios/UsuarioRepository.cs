@@ -4,7 +4,7 @@ namespace Mvc.Interfaces;
 
 public class UsuarioRepository : IUserRepository
 {
-    private readonly string CadenaConexion = "Data Source=./DB/tienda.db";
+    private readonly string CadenaConexion = "Data Source=DB/Tienda.db";
     public Usuario GetUser(string usuario, string contrasena)
     {
         Usuario user = null;
@@ -30,7 +30,7 @@ public class UsuarioRepository : IUserRepository
                 Nombre = reader.GetString(1),
                 User = reader.GetString(2),
                 Pass = reader.GetString(3),
-                Rol = reader.GetString(2)
+                Rol = reader.GetString(4)
             };
         }
         return user;

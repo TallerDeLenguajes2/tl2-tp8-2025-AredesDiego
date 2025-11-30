@@ -10,8 +10,8 @@
         <thead class="table-dark">
             <tr>
                 <th style="width: 10%;">Id</th>
-                <th style="width: 20%;">Precio</th>
                 <th style="width: 50%;">Descripción</th>
+                <th style="width: 20%;">Precio</th>
                 <th style="width: 20%;">Acciones</th>
             </tr>
         </thead>
@@ -20,14 +20,14 @@
             {
                 <tr>
                     <td>@producto.idProducto</td>
-                    <td class="text-success fw-bold">$@producto.Precio</td>
-                    <td class="text-break">@producto.Descripcion</td>
-
+                    <td class="text-start">@producto.Descripcion</td> <!-- Alineado a la izquierda -->
+                    <td class="text-success fw-bold">$@producto.Precio.ToString("N2")</td> <!-- Formato de precio -->
                     <td>
-                        <a asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.idProducto" class="btn btn-warning">Modificar</a>
-                        <a asp-controller ="Productos" asp-action="Delete" asp-route-id="@producto.idProducto" class="btn btn-danger">Eliminar</a>
+                        <a asp-controller="Productos" asp-action="Edit" asp-route-id="@producto.idProducto" 
+                           class="btn btn-warning btn-sm">Modificar</a>
+                        <a asp-controller="Productos" asp-action="Delete" asp-route-id="@producto.idProducto" 
+                           class="btn btn-danger btn-sm">Eliminar</a>
                     </td>
-
                 </tr>
             }
         </tbody>
